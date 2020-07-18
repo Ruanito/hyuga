@@ -1,38 +1,38 @@
 require 'test_helper'
 
 class OrdersControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @order = orders(:one)
-  end
-
-  test "should get index" do
-    get orders_url, as: :json
-    assert_response :success
-  end
-
-  test "should create order" do
+  test "should create order and save in the database" do
     assert_difference('Order.count') do
-      post orders_url, params: { order: {  } }, as: :json
+      post orders_url, params: order_request_params, as: :json
     end
+
+    order = Order.first
 
     assert_response 201
+    assert_equal order_request_params[:user_info], order.user_info.symbolize_keys
+    assert_equal order_request_params[:address_attributes], order.address_attributes.symbolize_keys
+    assert_equal order_request_params[:request_info], order.request_info.symbolize_keys
   end
 
-  test "should show order" do
-    get order_url(@order), as: :json
-    assert_response :success
-  end
-
-  test "should update order" do
-    patch order_url(@order), params: { order: {  } }, as: :json
-    assert_response 200
-  end
-
-  test "should destroy order" do
-    assert_difference('Order.count', -1) do
-      delete order_url(@order), as: :json
-    end
-
-    assert_response 204
+  def order_request_params
+    {
+      user_info: {
+        phone: "(11) 98765-4321",
+        name: "João da Silva",
+        email: "joao_silva@exemplo.com",
+      },
+      address_attributes: {
+        city: "São Paulo",
+        neighborhood: "Jardim Paulista",
+        street: "Avenida São Gabriel",
+        uf: "SP",
+        zip_code: "01435-001",
+      },
+      request_info: {
+        question1: "answer1",
+        question2: "answer2",
+        question3: "answer3",
+      }
+    }
   end
 end

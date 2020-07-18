@@ -157,7 +157,7 @@ test:
     default:
       database: neji_test
       hosts:
-        - localhost:27017
+        - database:27017
       options:
         read:
           mode: :primary

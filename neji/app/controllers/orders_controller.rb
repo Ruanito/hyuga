@@ -18,7 +18,7 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
 
     if @order.save
-      render json: @order, status: :created, location: @order
+      render json: { status: 'success' }, status: :created, location: @order
     else
       render json: @order.errors, status: :unprocessable_entity
     end
@@ -46,6 +46,26 @@ class OrdersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def order_params
-      params.require(:order).permit(:name)
+      params.permit(
+        user_info: [
+          :phone,
+          :name,
+          :email,
+        ],
+        address_attributes: [
+          :city,
+          :neighborhood,
+          :street,
+          :uf,
+          :zip_code,
+          :lat,
+          :lng,
+        ],
+        request_info: [
+          :question1,
+          :question2,
+          :question3,
+        ],
+      )
     end
 end
