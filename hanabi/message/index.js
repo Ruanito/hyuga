@@ -12,8 +12,7 @@ serverChannel = (error, channel) => {
 
     let queue = 'order';
     channel.assertQueue(queue, { durable: false });
-    console.log(" [*] Waiting for messages in queue %s.", queue);
-    channel.consume(queue, function(msg) {
+    channel.consume(queue, (msg) => {
         messageJson = JSON.parse(msg.content.toString());
         google.getLocation(messageJson.address_attributes, (responseBody) => {
             order.update(messageJson.id, responseBody);

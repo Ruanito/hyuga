@@ -14,7 +14,7 @@ const address = {
 
 const urlPath = '/maps/api/geocode/json?address=street+city+uf+neighborhood&key=' + process.env.GOOGLE_KEY;
 
-const responseOk = JSON.stringify({
+const responseOk = {
     status: 'OK',
     results: [
         {
@@ -26,7 +26,7 @@ const responseOk = JSON.stringify({
             }
         }
     ]
-});
+};
 
 describe('Test when google response not Ok', () => {
     beforeEach(() => {
