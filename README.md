@@ -20,6 +20,9 @@ Sistema de fila do RabbitMQ
 
 # Rodar aplicação
 
-Acessar a pasta neji a criar o arquivo .env com base no arquivo .env.example
-Acessar a pasta hanabi e criar o arquivo .env com base no arquivo .env.example
-Execucar o comando no termina docker-compose up
+- Acessar a pasta neji a criar o arquivo .env com base no arquivo .env.example
+- Acessar a pasta hanabi e criar o arquivo .env com base no arquivo .env.example
+- Execucar o comando no terminal
+```
+docker-compose up
+```
