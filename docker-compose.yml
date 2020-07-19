@@ -8,7 +8,7 @@ services:
     volumes:
       - ./neji:/neji
     ports:
-      - "3000:3000"
+      - 3000:3000
     environment:
       - VIRTUAL_HOST=hyuuga.neji.local
 
@@ -16,3 +16,15 @@ services:
     image: mongo:latest
     ports:
       - 27017:27017
+
+  byakugan:
+    image: rabbitmq:3-management
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+     - RABBITMQ_ERLANG_COOKIE=coockie
+     - RABBITMQ_DEFAULT_USER=guest
+     - RABBITMQ_DEFAULT_PASS=guest
+     - CLUSTERED=true
+     - VIRTUAL_HOST=hyuuga.byakugan.local

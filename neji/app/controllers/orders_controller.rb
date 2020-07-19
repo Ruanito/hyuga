@@ -18,6 +18,8 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
 
     if @order.save
+      Message::MessageService::send_message(@order.address_attributes, 'order')
+
       render json: { status: 'success' }, status: :created, location: @order
     else
       render json: @order.errors, status: :unprocessable_entity
