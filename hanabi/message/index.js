@@ -1,6 +1,9 @@
 const amqp = require('amqplib/callback_api');
 const order = require('./../order');
 const google = require('./../google');
+require('dotenv').config();
+
+const byakugan = process.env.BYAKUGAN_URL;
 
 serverChannel = (error, channel) => {
     if (error) {
@@ -32,7 +35,7 @@ message = {}
 
 message.consume = () => {
     setTimeout(() => {
-        amqp.connect('amqp://guest:guest@byakugan:5672', connection);
+        amqp.connect(byakugan, connection);
     }, 20000);
 }
 

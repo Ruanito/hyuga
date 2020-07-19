@@ -1,8 +1,5 @@
 const fetch = require('node-fetch');
-require('dotenv').config()
-
-const url = 'https://maps.googleapis.com/maps/api/geocode/json';
-const key = process.env.GOOGLE_KEY;
+require('dotenv').config();
 
 parserResponse = responseBody => {
     responseJson = JSON.parse(responseBody);
@@ -25,7 +22,7 @@ google = {}
 
 google.getLocation = (address, callback) => {
     console.log(address);
-    const params = url + '?address=' + address.street + '+' + address.city + '+' + address.uf + '+' + address.neighborhood + '&key=' + key;
+    const params = process.env.GOOGLE_API_URL + '?address=' + address.street + '+' + address.city + '+' + address.uf + '+' + address.neighborhood + '&key=' + process.env.GOOGLE_KEY;
     const requestUrl = params;
     fetch(requestUrl)
         .then(res => res.text())
