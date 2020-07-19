@@ -5,7 +5,6 @@ parserResponse = responseBody => {
     responseJson = JSON.parse(responseBody);
 
     if (responseJson.status !== 'OK') {
-        console.error('Error google request');
         return {
             lat: null,
             lng: null,
@@ -21,8 +20,7 @@ parserResponse = responseBody => {
 google = {}
 
 google.getLocation = (address, callback) => {
-    console.log(address);
-    const params = process.env.GOOGLE_API_URL + '?address=' + address.street + '+' + address.city + '+' + address.uf + '+' + address.neighborhood + '&key=' + process.env.GOOGLE_KEY;
+    const params = process.env.GOOGLE_API_URL + '/maps/api/geocode/json?address=' + address.street + '+' + address.city + '+' + address.uf + '+' + address.neighborhood + '&key=' + process.env.GOOGLE_KEY;
     const requestUrl = params;
     fetch(requestUrl)
         .then(res => res.text())

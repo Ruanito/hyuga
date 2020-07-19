@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node_modules/.bin/mocha"
   },
   "author": "",
   "license": "ISC",
@@ -12,5 +12,10 @@
     "amqplib": "^0.6.0",
     "dotenv": "^8.2.0",
     "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^8.0.1",
+    "nock": "^13.0.2"
   }
 }
