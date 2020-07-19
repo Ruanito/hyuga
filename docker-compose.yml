@@ -28,6 +28,8 @@ services:
       - ./hanabi:/hanabi
     environment:
       - VIRTUAL_HOST=hyuuga.hinabi.local
+    depends_on:
+      - byakugan
 
   byakugan:
     image: rabbitmq:3-management

@@ -18,7 +18,7 @@ parserResponse = responseBody => {
 google = {}
 
 google.getLocation = (address, callback) => {
-    const params = process.env.GOOGLE_API_URL + '/maps/api/geocode/json?address=' + address.street + '+' + address.city + '+' + address.uf + '+' + address.neighborhood + '&key=' + process.env.GOOGLE_KEY;
+    const params = process.env.GOOGLE_API_URL + '/maps/api/geocode/json?address=' + encodeURIComponent(address.street + '+' + address.city + '+' + address.uf + '+' + address.neighborhood) + '&key=' + process.env.GOOGLE_KEY;
     const requestUrl = params;
     fetch(requestUrl)
         .then(res => res.json())
