@@ -28,3 +28,12 @@ services:
      - RABBITMQ_DEFAULT_PASS=guest
      - CLUSTERED=true
      - VIRTUAL_HOST=hyuuga.byakugan.local
+
+  hanabi:
+    build:
+      context: ./hanabi
+    command: node index.js
+    volumes:
+      - ./hanabi:/hanabi
+    environment:
+      - VIRTUAL_HOST=hyuuga.hinabi.local
