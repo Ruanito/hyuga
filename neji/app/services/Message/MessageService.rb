@@ -3,7 +3,7 @@ require "bunny"
 class Message::MessageService
   class << self
     def send_message(message = {}, queue_name)
-        connection = Bunny.new("amqp://guest:guest@byakugan:5672")
+        connection = Bunny.new(ENV['BYAKUGAN'])
         connection.start
 
         channel = connection.create_channel

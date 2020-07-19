@@ -13,9 +13,9 @@ services:
       - VIRTUAL_HOST=hyuuga.neji.local
     depends_on:
       - byakugan
-      - database
+      - konoha
 
-  database:
+  konoha:
     image: mongo:latest
     ports:
       - 27017:27017
