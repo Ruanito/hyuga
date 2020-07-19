@@ -18,7 +18,7 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
 
     if @order.save
-      Message::MessageService::send_message(@order.address_attributes, 'order')
+      Message::MessageService::send_message(build_message_object, 'order')
 
       render json: { status: 'success' }, status: :created, location: @order
     else
@@ -74,5 +74,16 @@ class OrdersController < ApplicationController
     def update_order_address_attributes
       @order.address_attributes[:lat] = params[:address_attributes][:lat]
       @order.address_attributes[:lng] = params[:address_attributes][:lng]
+    end
+
+    def get_object_id
+      @order.id.to_s.to_json
+    end
+
+    def build_message_object
+      {
+        id: get_object_id,
+        address_attributes: @order.address_attributes,
+      }
     end
 end

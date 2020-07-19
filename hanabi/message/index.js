@@ -12,7 +12,7 @@ serverChannel = function(error, channel) {
     channel.consume(queue, function(msg) {
         messageJson = JSON.parse(msg.content.toString());
         console.log(" [x] Received %s", msg.content.toString());
-        google.getLocation(messageJson, (responseBody) => {
+        google.getLocation(messageJson.address_attributes, (responseBody) => {
             console.log(responseBody);
         })
     }, {
