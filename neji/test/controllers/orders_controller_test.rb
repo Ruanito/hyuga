@@ -14,6 +14,14 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
     assert_equal order_request_params[:request_info], order.request_info.symbolize_keys
   end
 
+  test "should return 400 when request it is invalid" do
+    post orders_url, params: {}, as: :json
+
+    order = Order.first
+
+    assert_response 400
+  end
+
   test "should update order and save in the database" do
     order = Order.new(order_request_params)
     order.save

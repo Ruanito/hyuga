@@ -17,12 +17,16 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
 
-    if @order.save
+    begin
+      unless @order.save
+        raise StandardError.new 'Error to save the request'
+      end
+
       Message::MessageService::send_message(build_message_object, 'order')
 
       render json: { status: 'success' }, status: :created, location: @order
-    else
-      render json: @order.errors, status: :unprocessable_entity
+    rescue StandardError => e
+      render status: 400, json: {message: e.message}
     end
   end
 

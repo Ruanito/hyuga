@@ -5,4 +5,5 @@ class Order
   field :address_attributes, type: Hash
   field :request_info, type: Hash
 
+  validates :user_info, :address_attributes, :request_info, presence: true
 end
