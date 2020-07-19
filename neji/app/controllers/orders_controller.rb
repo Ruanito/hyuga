@@ -26,7 +26,9 @@ class OrdersController < ApplicationController
 
   # PATCH/PUT /orders/1
   def update
-    if @order.update(order_params)
+    update_order_address_attributes
+
+    if @order.update
       render json: @order
     else
       render json: @order.errors, status: :unprocessable_entity
@@ -58,8 +60,6 @@ class OrdersController < ApplicationController
           :street,
           :uf,
           :zip_code,
-          :lat,
-          :lng,
         ],
         request_info: [
           :question1,
@@ -67,5 +67,10 @@ class OrdersController < ApplicationController
           :question3,
         ],
       )
+    end
+
+    def update_order_address_attributes
+      @order.address_attributes[:lat] = params[:address_attributes][:lat]
+      @order.address_attributes[:lng] = params[:address_attributes][:lng]
     end
 end
