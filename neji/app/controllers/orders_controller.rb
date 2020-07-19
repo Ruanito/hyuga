@@ -32,12 +32,15 @@ class OrdersController < ApplicationController
 
   # PATCH/PUT /orders/1
   def update
-    update_order_address_attributes
+    begin
+      update_order_address_attributes
+      unless @order.update
+        raise StandardError.new 'Error to update the request'
+      end
 
-    if @order.update
-      render json: @order
-    else
-      render json: @order.errors, status: :unprocessable_entity
+      render json: { status: 'success' }, status: 200
+    rescue StandardError => e
+      render status: 400, json: {message: e.message}
     end
   end
 
@@ -76,8 +79,12 @@ class OrdersController < ApplicationController
     end
 
     def update_order_address_attributes
-      @order.address_attributes[:lat] = params[:address_attributes][:lat]
-      @order.address_attributes[:lng] = params[:address_attributes][:lng]
+      unless params[:address_attributes].nil?
+        @order.address_attributes[:lat] = params[:address_attributes][:lat]
+        @order.address_attributes[:lng] = params[:address_attributes][:lng]
+      else
+        raise StandardError.new 'Invalid request'
+      end
     end
 
     def get_object_id

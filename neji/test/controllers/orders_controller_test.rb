@@ -37,6 +37,15 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
     assert_equal order_request_params[:request_info], order_updated.request_info.symbolize_keys
   end
 
+  test "should not update order when request is invalid" do
+    order = Order.new(order_request_params)
+    order.save
+
+    patch order_url(order), params: {}, as: :json
+
+    assert_response 400
+  end
+
   def order_request_params
     {
       user_info: {
