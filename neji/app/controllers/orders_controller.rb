@@ -77,7 +77,7 @@ class OrdersController < ApplicationController
     end
 
     def get_object_id
-      @order.id.to_s.to_json
+      @order.id.to_s
     end
 
     def build_message_object
