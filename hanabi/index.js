@@ -1,3 +1,3 @@
 const message = require('./message');
 
-message.receive();
+message.consume();
